@@ -1,9 +1,7 @@
 (function($) {
-  MarkovModel = Backbone.Model.extend({
-    slideLen : null,
-    word : null,
-    length : null,
-  });
+  var settings = {
+    slideLen : 0,
+  };
   
   TextModel = Backbone.Model.extend({
     id : null,
@@ -19,15 +17,6 @@
     model : TextModel
   });
 
-  //master model
-  var settings = {
-    slideLen : 0,
-    word : false,
-    length : 100,
-  };
-
-  var info = new MarkovModel(settings);
-  
   AppView = Backbone.View.extend({
     el : $("body"),
     
@@ -50,21 +39,21 @@
     processText : function() {
       var text = $("#text-input").val(), 
           len = $("#text-length").val(), 
-          word = $('input:radio[name=r1]:checked').val(), 
-          order = info.get('slideLen') / 20, 
-          del, 
+          by = $('input:radio[name=r1]:checked').val(), 
+          order = settings.slideLen / 20, 
+          delim, 
           options, 
           chain, 
           str;
-      del = (word == "word") ? " " : "";
+      delim = (by == "word") ? " " : "";
       options = {
-        delim : del,
+        delim : delim,
         outputLen : len
       };
       chain = new Markov(text, order, options);
       str = '';
       chain.each(function(w) {
-        str += w + del;
+        str += w + delim;
       });
       $("#text-output").val(str);
     },
@@ -78,7 +67,7 @@
       if (val > 70) {
         color = 'red';
       }
-      info.set("slideLen", val);
+      settings.slideLen = val;
       if (val % 20 == 0) {
         $("#slider1_value").html(val / 20);
       }
