@@ -1,9 +1,9 @@
 var fs = require('fs'),
-	util = require('util'),
+	util = require('util');
 	
 var assets_dir = "./assets";
 
-//post an image
+//get default texts
 function getText(res, id) {
     var text = "Why is it so important to work on a problem you have? Among other things, it "+
     "ensures the problem really exists. It sounds obvious to say you should only work on problems that exist. " +
