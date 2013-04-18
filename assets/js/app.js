@@ -9,7 +9,7 @@
       id: null,
       title: null,
       text: null,
-      urlRoot: "/markovsite/haha.php",
+      urlRoot: "/text",
       url: function(options) {return this.urlRoot + "/" + this.id;}
     });
     
