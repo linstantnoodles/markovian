@@ -32,6 +32,7 @@
       "click #gen-text" : "processText",
       "click #set-text" : "setText",
       "click #clear-text" : "clearText",
+      "click #markovDialog" : "showMarkovDialog",
       "change #slider1" : "updateSlide"
     },
     
@@ -102,7 +103,63 @@
     clearText : function() {
       $("#text-input").val("");
       $("#text-output").val("");
+    },
+    
+    showMarkovDialog : function() {
+      var src, 
+          markovAbout, 
+          moreInfo;
+      src = "<p>From <a href=\"http://en.wi" +
+      "kipedia.org/wiki/Markov_chain\"" +
+      "target=\"__blank\">Wikipedia</a></p>";
+      markovAbout = "<p>A Markov chain (discrete-time " +
+      "Markov chain or DTMC[1]) named " +
+      "after Andrey Markov, is a mat" +
+      "hematical system that undergoe" +
+      "s transitions from one state t" +
+      "o another, between a finite or " +
+      "countable number of possible " +
+      "states. It is a random process " +
+      "usually characterized as memo" +
+      "ryless: the next state depends " +
+      "only on the current state and " +
+      "not on the sequence of events " +
+      "that preceded it. This specif" +
+      "ic kind of \"memorylessness\" is " +
+      "called the Markov property. M" +
+      "arkov chains have many applica" +
+      "tions as statistical models of " +
+      "real-world processes</p>";
+      moreInfo = "<p>To learn more, check out: <" +
+      "/p><ul><li><a href=\"http://st" +
+      "ackoverflow.com/questions/4081" +
+      "662/explain-markov-chain-algor" +
+      "ithm-in-laymans-terms\" target=\"__blank\">Explai" +
+      "n markov-chain algorithm in la" +
+      "yman's terms</a></li><li><a hr" +
+      "ef=\"http://www.codinghorror.c" +
+      "om/blog/2008/06/markov-and-you" +
+      ".html\" target=\"__blank\">Markov and You</a></li" +
+      "><ul>";
+      $.Dialog({
+        'title' : 'What is a Markov Chain?',
+        'content' : src + markovAbout + moreInfo,
+        'draggable' : true,
+        'overlay' : true,
+        'closeButton' : true,
+        'buttonsAlign' : 'left',
+        'position' : {
+          'zone' : 'middle'
+        },
+        'buttons' : {
+          'Close' : {
+            'action' : function() {
+            }
+          }
+        }
+      });
     }
+    
   });
 
   var appview = new AppView;
