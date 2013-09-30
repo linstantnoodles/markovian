@@ -2,7 +2,7 @@
   var settings = {
     slideLen : 0,
   };
-  
+
   TextModel = Backbone.Model.extend({
     id : null,
     title : null,
@@ -12,39 +12,40 @@
       return this.urlRoot + "/" + this.id;
     }
   });
-  
+
   Texts = Backbone.Collection.extend({
     model : TextModel
   });
 
   AppView = Backbone.View.extend({
     el : $("body"),
-    
+
     initialize : function() {
       _.bindAll(this);
       this.texts = new Texts(null, {
         view : this
       });
     },
-    
+
     // DOM events specific to elements
     events : {
       "click #gen-text" : "processText",
       "click #set-text" : "setText",
+      "click #play-text" : "playText",
       "click #clear-text" : "clearText",
       "click #markovDialog" : "showMarkovDialog",
       "change #slider1" : "updateSlide"
     },
-    
+
     // Generate the markov output
     processText : function() {
-      var text = $("#text-input").val(), 
-          len = $("#text-length").val(), 
-          by = $('input:radio[name=r1]:checked').val(), 
-          order = settings.slideLen / 20, 
-          delim, 
-          options, 
-          chain, 
+      var text = $("#text-input").val(),
+          len = $("#text-length").val(),
+          by = $('input:radio[name=r1]:checked').val(),
+          order = settings.slideLen / 20,
+          delim,
+          options,
+          chain,
           str;
       delim = (by == "word") ? " " : "";
       options = {
@@ -58,7 +59,7 @@
       });
       $("#text-output").val(str);
     },
-    
+
     // Update color and displayed value of slider
     updateSlide : function(e, val) {
       var color = 'green';
@@ -76,10 +77,10 @@
         .children(".complete")
         .css("background-color", color);
     },
-    
+
     // Set a default text input
     setText : function() {
-      var id = $('select[name=default-text] > option:selected').val(), 
+      var id = $('select[name=default-text] > option:selected').val(),
           model = this.texts.get(id),
           callBack,
           newText;
@@ -98,16 +99,20 @@
         this.texts.add(newText);
       }
     },
-    
-    // clear both textareas 
+
+    playText: function() {
+      speak($("#text-output").val());
+    },
+
+    // clear both textareas
     clearText : function() {
       $("#text-input").val("");
       $("#text-output").val("");
     },
-    
+
     showMarkovDialog : function() {
-      var src, 
-          markovAbout, 
+      var src,
+          markovAbout,
           moreInfo;
       src = "<p>From <a href=\"http://en.wi" +
       "kipedia.org/wiki/Markov_chain\"" +
@@ -159,7 +164,7 @@
         }
       });
     }
-    
+
   });
 
   var appview = new AppView;
