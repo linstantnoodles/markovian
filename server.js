@@ -6,7 +6,7 @@ var express = require('express'),
 app.use(express.static(__dirname + '/assets'));
 
 app.get('/', function(req, res) {
-  res.sendfile(__dirname + '/assets/' + 'index.html');
+  res.sendfile('index.html');
 });
 
 app.get('/text/:id', function(req, res) {
@@ -15,4 +15,5 @@ app.get('/text/:id', function(req, res) {
 
 var port = process.env.PORT || 5000;
 app.listen(port);
+
 console.log("Listening on port 5000");
