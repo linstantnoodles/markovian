@@ -70,7 +70,7 @@
         color = 'red';
       }
       settings.slideLen = val;
-      if (val % 20 == 0) {
+      if (val % 20 === 0) {
         $("#slider1_value").html(val / 20);
       }
       $("#slider1")
@@ -104,7 +104,7 @@
       speak($("#text-output").val());
     },
 
-    // clear both textareas
+    // Clear both textareas
     clearText : function() {
       $("#text-input").val("");
       $("#text-output").val("");
